@@ -1,7 +1,8 @@
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = "BufWritePre", -- uncomment for format on save
+    cmd = { "ConformInfo" },
     config = function()
       require "configs.conform"
     end,
@@ -17,43 +18,33 @@ return {
   },
 
   {
-  	"williamboman/mason.nvim",
-  	opts = {
-  		ensure_installed = {
-  			"lua-language-server", "stylua",
-  			"prettier", "basedpyright",
-        "black", "flake8"
-  		},
-  	},
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "lua-language-server",
+        "stylua",
+        "prettier",
+        "basedpyright",
+        "black",
+        "flake8",
+      },
+    },
   },
 
   {
-  	"nvim-treesitter/nvim-treesitter",
-  	opts = {
-  		ensure_installed = {
-  			"vim", "lua", "vimdoc", "python"
-  		},
-  	},
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "vimdoc",
+        "python",
+      },
+    },
   },
-  {
-    'dense-analysis/ale',
-    config = function()
-        -- Configuration goes here.
-        local g = vim.g
-
-        g.ale_ruby_rubocop_auto_correct_all = 1
-
-        g.ale_linters = {
-            python = {'black', 'flake8'},
-        }
-    end,
-    lazy = true,
-    ft = "python"
-   },
-
   { -- Obsidian plugin
     "epwalsh/obsidian.nvim",
-    version = "*",  -- recommended, use latest release instead of latest commit
+    version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
     ft = "markdown",
     -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
@@ -63,11 +54,10 @@ return {
     --   "BufReadPre path/to/my-vault/**.md",
     --   "BufNewFile path/to/my-vault/**.md",
     -- },
-    event = {"BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md"},
+    event = { "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md" },
     dependencies = {
       -- Required.
       "nvim-lua/plenary.nvim",
-
     },
     opts = {
       workspaces = {
@@ -76,7 +66,6 @@ return {
           path = "~/Documents/Definitivo",
         },
       },
-
     },
   },
   -- -- SQL plugins
@@ -100,16 +89,16 @@ return {
     "kristijanhusak/vim-dadbod-completion",
   },
   {
-    'kristijanhusak/vim-dadbod-ui',
+    "kristijanhusak/vim-dadbod-ui",
     dependencies = {
-      { 'tpope/vim-dadbod', lazy = true },
-      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+      { "tpope/vim-dadbod", lazy = true },
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
     },
     cmd = {
-      'DBUI',
-      'DBUIToggle',
-      'DBUIAddConnection',
-      'DBUIFindBuffer',
+      "DBUI",
+      "DBUIToggle",
+      "DBUIAddConnection",
+      "DBUIFindBuffer",
     },
     init = function()
       -- Your DBUI configuration
@@ -126,16 +115,16 @@ return {
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
-    }
+    },
   },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     config = function()
-        require("nvim-surround").setup({
-            -- Configuration here, or leave empty to use defaults
-        })
-    end
-  }
+      require("nvim-surround").setup {
+        -- Configuration here, or leave empty to use defaults
+      }
+    end,
+  },
 }
