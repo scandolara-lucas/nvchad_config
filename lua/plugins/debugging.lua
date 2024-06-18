@@ -13,6 +13,8 @@ return {
     local dapui = require("dapui")
 
     require("dapui").setup()
+    -- Substitute the next python dap setup path with the local venv where I want to debug
+    -- The venv has to have debugpy installed
     require("dap-python").setup("/home/scand/Repos/testing_debugger/.venv/bin/python")
 
     dap.listeners.before.attach.dapui_config = function()
