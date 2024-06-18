@@ -42,7 +42,8 @@ return {
       },
     },
   },
-  { -- Obsidian plugin
+
+  {                -- Obsidian plugin
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
@@ -115,20 +116,24 @@ return {
       end,
     },
   },
-  -- -- SQL plugins
-  -- {'kristijanhusak/vim-dadbod-ui'},
-  -- {"kristijanhusak/vim-dadbod-completion"},
-  -- {
-  --   "tpope/vim-dadbod",
-  --   opt = true,
-  --   requires = {
-  --     "kristijanhusak/vim-dadbod-ui",
-  --     "kristijanhusak/vim-dadbod-completion",
-  --   },
-  --   config = function()
-  --     require("config.dadbod").setup()
-  --   end,
-  -- },
+  { -- Auto Sync Neovim with Obsidian
+    "oflisback/obsidian-bridge.nvim",
+    config = function()
+      require("obsidian-bridge").setup({
+        scroll_sync = true
+      })
+    end,
+    event = {
+      "BufReadPre *.md",
+      "BufNewFile *.md",
+    },
+    lazy = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    }
+  },
+
   { -- SQL plugins
     "tpope/vim-dadbod",
   },
@@ -138,7 +143,7 @@ return {
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
-      { "tpope/vim-dadbod", lazy = true },
+      { "tpope/vim-dadbod",                     lazy = true },
       { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
     },
     cmd = {
@@ -153,6 +158,7 @@ return {
       require("configs.dadbod").setup()
     end,
   },
+
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -164,6 +170,7 @@ return {
       -- refer to the configuration section below
     },
   },
+
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
