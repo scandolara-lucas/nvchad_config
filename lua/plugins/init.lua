@@ -115,20 +115,22 @@ return {
       end,
     },
   },
-  -- -- SQL plugins
-  -- {'kristijanhusak/vim-dadbod-ui'},
-  -- {"kristijanhusak/vim-dadbod-completion"},
-  -- {
-  --   "tpope/vim-dadbod",
-  --   opt = true,
-  --   requires = {
-  --     "kristijanhusak/vim-dadbod-ui",
-  --     "kristijanhusak/vim-dadbod-completion",
-  --   },
-  --   config = function()
-  --     require("config.dadbod").setup()
-  --   end,
-  -- },
+  { -- Sync buffer with Obsidian
+    "oflisback/obsidian-bridge.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require("obsidian-bridge").setup {
+        -- obsidian_server_address = "https://localhost:27124",
+        scroll_sync = true,
+      }
+    end,
+    event = {
+      "BufReadPre *.md",
+      "BufNewFile *.md",
+    },
+    lazy = true,
+  },
+
   { -- SQL plugins
     "tpope/vim-dadbod",
   },
