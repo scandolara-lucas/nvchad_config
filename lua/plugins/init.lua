@@ -54,7 +54,10 @@ return {
     --   "BufReadPre path/to/my-vault/**.md",
     --   "BufNewFile path/to/my-vault/**.md",
     -- },
-    event = { "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md" },
+    event = {
+      "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
+      "BufNewFile " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
+    },
     dependencies = {
       -- Required.
       "nvim-lua/plenary.nvim",
@@ -124,9 +127,13 @@ return {
         scroll_sync = true,
       }
     end,
+    -- event = {
+    --   "BufReadPre *.md",
+    --   "BufNewFile *.md",
+    -- },
     event = {
-      "BufReadPre *.md",
-      "BufNewFile *.md",
+      "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
+      "BufNewFile " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
     },
     lazy = true,
   },
