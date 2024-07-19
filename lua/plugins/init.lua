@@ -183,4 +183,38 @@ return {
       }
     end,
   },
+  { -- copilot stuff
+    "zbirenbaum/copilot.lua",
+    -- cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {
+        -- config
+        -- for cmp stuff
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
+  },
+  { -- cmp config for copilot
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
+    },
+    opts = {
+      sources = {
+        { name = "nvim_lsp", group_index = 2 },
+        { name = "copilot", group_index = 2 },
+        { name = "luasnip", group_index = 2 },
+        { name = "buffer", group_index = 2 },
+        { name = "nvim_lua", group_index = 2 },
+        { name = "path", group_index = 2 },
+      },
+    },
+  },
 }
