@@ -39,8 +39,30 @@ return {
         "lua",
         "vimdoc",
         "python",
+        "sql",
       },
     },
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    -- lazy = false,
+    event = "VeryLazy",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup {
+        -- Configuration here, or leave empty to use defaults
+      }
+    end,
   },
   { -- Obsidian plugin
     "epwalsh/obsidian.nvim",
@@ -162,27 +184,7 @@ return {
       require("configs.dadbod").setup()
     end,
   },
-  {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    -- lazy = false,
-    event = "VeryLazy",
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
-  },
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup {
-        -- Configuration here, or leave empty to use defaults
-      }
-    end,
-  },
+
   { -- copilot stuff
     "zbirenbaum/copilot.lua",
     -- cmd = "Copilot",
@@ -193,17 +195,17 @@ return {
         -- for cmp stuff
         suggestion = { enabled = false },
         panel = { enabled = false },
+        filetypes = { sql = true },
       }
     end,
   },
-  { -- cmp config for copilot
+
+  { -- update cmp config for copilot
     "hrsh7th/nvim-cmp",
     dependencies = {
       {
         "zbirenbaum/copilot-cmp",
-        config = function()
-          require("copilot_cmp").setup()
-        end,
+        opts = {},
       },
     },
     opts = {
