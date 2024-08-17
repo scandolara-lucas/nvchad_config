@@ -2,6 +2,7 @@ local options = {
   formatters_by_ft = {
     lua = { "stylua" },
     python = { "flake8", "black" },
+    rust = { "rustfmt " },
     -- css = { "prettier" },
     -- html = { "prettier" },
   },

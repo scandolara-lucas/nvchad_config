@@ -3,19 +3,20 @@ return {
   dependencies = {
     "rcarriga/nvim-dap-ui",
     "nvim-neotest/nvim-nio",
-    "mfussenegger/nvim-dap-python"
+    "mfussenegger/nvim-dap-python",
   },
   ft = "python",
   lazy = true,
 
   config = function()
-    local dap = require("dap")
-    local dapui = require("dapui")
+    local dap = require "dap"
+    local dapui = require "dapui"
 
     require("dapui").setup()
     -- Substitute the next python dap setup path with the local venv where I want to debug
     -- The venv has to have debugpy installed
-    require("dap-python").setup("/home/scand/Repos/testing_debugger/.venv/bin/python")
+    -- require("dap-python").setup("/home/scand/Repos/testing_debugger/.venv/bin/python")
+    require("dap-python").setup "/home/scand/Documents/KathiMaster/kathi-ma/.venv/bin/python"
 
     dap.listeners.before.attach.dapui_config = function()
       dapui.open()

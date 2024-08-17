@@ -27,6 +27,7 @@ return {
         "basedpyright",
         "black",
         "flake8",
+        "rust-analyzer",
       },
     },
   },
@@ -39,11 +40,19 @@ return {
         "lua",
         "vimdoc",
         "python",
+        "rust",
       },
     },
   },
 
-  {                -- Obsidian plugin
+  -- Rust stuff
+  { -- Debugger and several extra things
+    "mrcjkb/rustaceanvim",
+    version = "^4", -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
+
+  { -- Obsidian plugin
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
@@ -55,7 +64,10 @@ return {
     --   "BufReadPre path/to/my-vault/**.md",
     --   "BufNewFile path/to/my-vault/**.md",
     -- },
-    event = { "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md" },
+    event = {
+      "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
+      "BufNewFile " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
+    },
     dependencies = {
       -- Required.
       "nvim-lua/plenary.nvim",
@@ -119,19 +131,23 @@ return {
   { -- Auto Sync Neovim with Obsidian
     "oflisback/obsidian-bridge.nvim",
     config = function()
-      require("obsidian-bridge").setup({
-        scroll_sync = true
-      })
+      require("obsidian-bridge").setup {
+        scroll_sync = true,
+      }
     end,
+    -- event = {
+    --   "BufReadPre *.md",
+    --   "BufNewFile *.md",
+    -- },
     event = {
-      "BufReadPre *.md",
-      "BufNewFile *.md",
+      "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
+      "BufNewFile " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
     },
     lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
-    }
+    },
   },
 
   { -- SQL plugins
@@ -143,7 +159,7 @@ return {
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
-      { "tpope/vim-dadbod",                     lazy = true },
+      { "tpope/vim-dadbod", lazy = true },
       { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
     },
     cmd = {
