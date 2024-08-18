@@ -136,7 +136,6 @@ map("n", "<leader>cc", function()
   end
 end, { desc = "blankline jump to current context" })
 
--- Disable mappings
--- local nomap = vim.keymap.del
---
--- nomap("n", "<leader>")
+-- Obsidian
+map("n", "<leader>os", ":ObsidianQuickSwitch<CR>", { silent = true, noremap = true, desc = "Obsidian Quick Switch" })
+map("n", "<leader>oo", ":ObsidianOpen<CR>", { silent = true, noremap = true, desc = "Obsidian Open" })
