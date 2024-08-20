@@ -22,10 +22,10 @@ map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 
 -- Resize
--- map("n", "<C-Up>", "<Cmd>resize +2<CR>", { desc = "Resize split up" })
--- map("n", "<C-Down>", "<Cmd>resize -2<CR>", { desc = "Resize split down" })
-map("n", "<C-Left>", "<Cmd>vertical resize +2<CR>", { desc = "Resize split left" })
-map("n", "<C-Right>", "<Cmd>vertical resize -2<CR>", { desc = "Resize split right" })
+map("n", "<A-Up>", "<Cmd>resize +2<CR>", { desc = "Resize split up" })
+map("n", "<A-Down>", "<Cmd>resize -2<CR>", { desc = "Resize split down" })
+map("n", "<A-Left>", "<Cmd>vertical resize +2<CR>", { desc = "Resize split left" })
+map("n", "<A-Right>", "<Cmd>vertical resize -2<CR>", { desc = "Resize split right" })
 
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "General Save file" })
 map("n", "<C-c>", "<cmd>%y+<CR>", { desc = "General Copy whole file" })
@@ -63,7 +63,7 @@ map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" }
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
 
 -- Telescope
-map("n", "<leader>f", "", { desc = "telescope find" })
+map("n", "<leader>f", "", { desc = "Find with Telescope" })
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
 map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
@@ -75,6 +75,8 @@ map("n", "<leader>fs", "<cmd>Telescope git_status<CR>", { desc = "telescope git 
 map("n", "<leader>ft", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
 map("n", "<leader>fn", "<cmd>Telescope themes<CR>", { desc = "telescope nvchad themes" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
+map("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "telescope resume" })
+map("n", "<leader>fp", "<cmd>Telescope grep_string<cr>", { desc = "telescope grep string" })
 map(
   "n",
   "<leader>fa",
@@ -94,15 +96,6 @@ map("n", "<leader>tv", function()
 end, { desc = "terminal new vertical window" })
 
 -- Toggleable
--- map({ "n", "t" }, "<A-v>", function()
---   require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
--- end, { desc = "terminal toggleable vertical term" })
--- map({ "n", "t" }, "<A-h>", function()
---   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
--- end, { desc = "terminal new horizontal term" })
--- map({ "n", "t" }, "<A-i>", function()
---   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
--- end, { desc = "terminal toggle floating term" })
 map({ "n", "t" }, "<leader>tV", function()
   require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
 end, { desc = "terminal toggleable vertical term" })
@@ -138,5 +131,7 @@ map("n", "<leader>cc", function()
 end, { desc = "blankline jump to current context" })
 
 -- Obsidian
+map("n", "<leader>o", "", { noremap = true, desc = "Obsidian" })
+map("n", "<leader>ot", ":ObsidianToday", { silent = true, noremap = true, desc = "Obsidian Today" })
 map("n", "<leader>os", ":ObsidianQuickSwitch<CR>", { silent = true, noremap = true, desc = "Obsidian Quick Switch" })
 map("n", "<leader>oo", ":ObsidianOpen<CR>", { silent = true, noremap = true, desc = "Obsidian Open" })
