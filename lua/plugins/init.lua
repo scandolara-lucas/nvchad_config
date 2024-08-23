@@ -255,7 +255,71 @@ return {
           command_palette = true, -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
           inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = false, -- add a border to hover docs and signature help
+          lsp_doc_border = true, -- add a border to hover docs and signature help
+        },
+      }
+    end,
+  },
+  { -- Call lazygit within nvim -> it does not work currently
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+    },
+  },
+
+  { -- Plugin for tests
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-neotest/neotest-python",
+    },
+    ft = { "python" },
+    config = function()
+      require("neotest").setup {
+        adapters = {
+          require "neotest-python" {
+            -- Extra arguments for nvim-dap configuration
+            -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
+            dap = { justMyCode = false, console = "internalConsole" },
+            -- Command line arguments for runner
+            -- Can also be a function to return dynamic values
+            args = { "--log-level", "DEBUG" },
+            -- args = { "--log-level", "DEBUG", "--rootdir", "/Users/lucasscandolara/Azure/DataParser" },
+            -- Runner to use. Will use pytest if available by default.
+            -- Can be a function to return dynamic value.
+            runner = "pytest",
+            -- Custom python path for the runner.
+            -- Can be a string or a list of strings.
+            -- Can also be a function to return dynamic value.
+            -- If not provided, the path will be inferred by checking for
+            -- virtual envs in the local directory and for Pipenev/Poetry configs
+            -- NOTE: All tests under `tests/` folder MUST contain a `__init__.py` file
+            python = ".venv/bin/python",
+            -- Returns if a given file path is a test file.
+            -- NB: This function is called a lot so don't perform any heavy tasks within it.
+            -- is_test_file = function(file_path)
+            --   ...
+            -- end,
+            -- !!EXPERIMENTAL!! Enable shelling out to `pytest` to discover test
+            -- instances for files containing a parametrize mark (default: false)
+            -- pytest_discover_instances = true,
+          },
         },
       }
     end,
