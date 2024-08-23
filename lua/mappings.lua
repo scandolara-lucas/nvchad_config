@@ -38,6 +38,8 @@ map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "Toggle nvcheatsheet" }
 -- LSP
 -- global lsp mappings
 map("n", "<leader>ll", vim.diagnostic.setloclist, { desc = "LSP Diagnostic loclist" })
+-- TODO: remap lsp rename here
+map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP Rename", remap = true })
 
 -- Tabufline
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
@@ -96,13 +98,13 @@ map("n", "<leader>tv", function()
 end, { desc = "terminal new vertical window" })
 
 -- Toggleable
-map({ "n", "t" }, "<leader>tV", function()
-  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
-end, { desc = "terminal toggleable vertical term" })
-map({ "n", "t" }, "<leader>tH", function()
-  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
-end, { desc = "terminal new horizontal term" })
-map({ "n", "t" }, "<leader>tF", function()
+-- map({ "n", "t" }, "<leader>tV", function()
+--   require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm" }
+-- end, { desc = "terminal toggleable vertical term" })
+-- map({ "n", "t" }, "<leader>tH", function()
+--   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+-- end, { desc = "terminal new horizontal term" })
+map({ "n" }, "<leader>tF", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "terminal toggle floating term" })
 --
