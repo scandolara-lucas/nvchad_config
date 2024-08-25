@@ -86,7 +86,7 @@ map(
 )
 
 -- Terminal
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+map("t", "<esc>", "<C-\\><C-N>", { desc = "terminal escape terminal mode", remap = true })
 
 map("n", "<leader>th", function()
   require("nvchad.term").new { pos = "sp" }
