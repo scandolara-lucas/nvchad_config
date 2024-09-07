@@ -136,3 +136,50 @@ map("n", "<leader>o", "", { noremap = true, desc = "Obsidian" })
 map("n", "<leader>ot", ":ObsidianToday", { silent = true, noremap = true, desc = "Obsidian Today" })
 map("n", "<leader>os", ":ObsidianQuickSwitch<CR>", { silent = true, noremap = true, desc = "Obsidian Quick Switch" })
 map("n", "<leader>oo", ":ObsidianOpen<CR>", { silent = true, noremap = true, desc = "Obsidian Open" })
+
+-- Custom
+-- Function to get text from visual selection, send to python script to
+-- translate and then open the result in new vertical buffer
+local function get_visual_selection()
+  local start_pos = vim.fn.getpos "'<"
+  local end_pos = vim.fn.getpos "'>"
+  local lines = vim.api.nvim_buf_get_lines(0, start_pos[2] - 1, end_pos[2], false)
+  if #lines == 0 then
+    return ""
+  end
+
+  if start_pos[2] == end_pos[2] then
+    lines[1] = string.sub(lines[1], start_pos[3], end_pos[3])
+  else
+    lines[1] = string.sub(lines[1], start_pos[3])
+    lines[#lines] = string.sub(lines[#lines], 1, end_pos[3])
+  end
+
+  return table.concat(lines, "\n")
+end
+
+-- Create the command with inline processing
+vim.api.nvim_create_user_command("VisualToBuffer", function()
+  local text = get_visual_selection()
+  if text == "" then
+    return
+  end
+
+  -- Process the text with the Python script
+  local script_path = "/home/scand/Repos/easy-translate/translate.py"
+  -- Escape single quotes in the text and wrap the entire text in single quotes
+  local escaped_text = text:gsub("'", "'\\''")
+  -- local command = string.format("python %s '%s'", script_path, escaped_text)
+  local command = string.format("%s '%s'", script_path, escaped_text)
+  local processed_text = vim.fn.system(command)
+
+  -- Open in new buffer
+  local buf = vim.api.nvim_create_buf(true, true)
+  local lines = vim.split(processed_text, "\n")
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.cmd "vsplit"
+  vim.api.nvim_win_set_buf(0, buf)
+end, { range = true })
+
+-- Map <leader>p in visual mode to the VisualToBuffer command
+map("v", "<leader>p", ":VisualToBuffer<CR>", { noremap = true, silent = true })
