@@ -165,14 +165,15 @@ local function get_visual_selection()
 end
 
 -- Create the command with inline processing
-vim.api.nvim_create_user_command("VisualToBuffer", function()
+vim.api.nvim_create_user_command("DeepLTranslate", function()
   local text = get_visual_selection()
   if text == "" then
     return
   end
 
   -- Process the text with the Python script
-  local script_path = "/home/scand/Repos/easy-translate/translate.py"
+  -- local script_path = "/home/scand/Repos/easy-translate/translate.py"
+  local script_path = "/Users/lucasscandolara/Documents/Personal/Translate/easy_translate.py"
   -- Escape single quotes in the text and wrap the entire text in single quotes
   local escaped_text = text:gsub("'", "'\\''")
   -- local command = string.format("python %s '%s'", script_path, escaped_text)
@@ -187,5 +188,5 @@ vim.api.nvim_create_user_command("VisualToBuffer", function()
   vim.api.nvim_win_set_buf(0, buf)
 end, { range = true })
 
--- Map <leader>p in visual mode to the VisualToBuffer command
-map("v", "<leader>p", ":VisualToBuffer<CR>", { noremap = true, silent = true })
+-- Map in visual mode to the DeepLTranslate command
+map("v", "<leader>dt", ":DeepLTranslate<CR>", { noremap = true, silent = true })
