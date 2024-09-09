@@ -86,6 +86,10 @@ map(
   { desc = "telescope find all files" }
 )
 
+-- Git
+map("n", "<leader>g", "", { desc = "Git signs" })
+map("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "Reset current hunk" })
+
 -- Terminal
 -- map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 map("t", "<esc>", "<C-\\><C-N>", { desc = "terminal escape terminal mode", remap = true })
