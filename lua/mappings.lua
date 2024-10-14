@@ -144,8 +144,7 @@ map("n", "<leader>os", ":ObsidianQuickSwitch<CR>", { silent = true, noremap = tr
 map("n", "<leader>oo", ":ObsidianOpen<CR>", { silent = true, noremap = true, desc = "Obsidian Open" })
 
 -- Custom
--- Function to get text from visual selection, send to python script to
--- translate and then open the result in new vertical buffer
+-- Function to get text from visual selection
 local function get_visual_selection()
   local start_pos = vim.fn.getpos "'<"
   local end_pos = vim.fn.getpos "'>"
@@ -165,6 +164,7 @@ local function get_visual_selection()
 end
 
 -- Create the command with inline processing
+-- Send visual selection to python script and open result in new buffer
 vim.api.nvim_create_user_command("DeepLTranslate", function()
   local text = get_visual_selection()
   if text == "" then
@@ -190,3 +190,30 @@ end, { range = true })
 
 -- Map in visual mode to the DeepLTranslate command
 map("v", "<leader>dt", ":DeepLTranslate<CR>", { noremap = true, silent = true })
+
+-- Create the command with inline processing
+-- Send visual selection to python script and open result in new buffer
+vim.api.nvim_create_user_command("AIGemini", function()
+  local text = get_visual_selection()
+  if text == "" then
+    return
+  end
+
+  -- Process the text with the Python script
+  local script_path = "/Users/lucasscandolara/Documents/Personal/Gemio/gemio.py"
+  -- Escape single quotes in the text and wrap the entire text in single quotes
+  local escaped_text = text:gsub("'", "'\\''")
+  -- local command = string.format("python %s '%s'", script_path, escaped_text)
+  local command = string.format("%s '%s'", script_path, escaped_text)
+  local processed_text = vim.fn.system(command)
+
+  -- Open in new buffer
+  local buf = vim.api.nvim_create_buf(true, true)
+  local lines = vim.split(processed_text, "\n")
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.cmd "vsplit"
+  vim.api.nvim_win_set_buf(0, buf)
+end, { range = true })
+
+-- Map in visual mode to the DeepLTranslate command
+map("v", "<leader>ag", ":AIGemini<CR>", { noremap = true, silent = true })
