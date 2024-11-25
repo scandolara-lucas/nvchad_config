@@ -60,6 +60,9 @@ end, { desc = "buffer close" })
 map("n", "<leader>/", "gcc", { desc = "Toggle Comment", remap = true })
 map("v", "<leader>/", "gc", { desc = "Toggle comment", remap = true })
 
+-- Copilot
+map("n", "<leader>cp", "<cmd>Copilot panel<CR>", { desc = "Copilot panel" })
+
 -- Nvimtree
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })

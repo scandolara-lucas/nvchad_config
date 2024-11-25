@@ -225,31 +225,31 @@ return {
         -- config
         -- for cmp stuff
         suggestion = { enabled = false },
-        panel = { enabled = false },
+        panel = { enabled = true },
         filetypes = { sql = true },
       }
     end,
   },
 
-  { -- update cmp config for copilot
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      {
-        "zbirenbaum/copilot-cmp",
-        opts = {},
-      },
-    },
-    opts = {
-      sources = {
-        { name = "nvim_lsp", group_index = 2 },
-        { name = "copilot", group_index = 2 },
-        { name = "luasnip", group_index = 2 },
-        { name = "buffer", group_index = 2 },
-        { name = "nvim_lua", group_index = 2 },
-        { name = "path", group_index = 2 },
-      },
-    },
-  },
+  -- { -- update cmp config for copilot
+  --   "hrsh7th/nvim-cmp",
+  --   dependencies = {
+  --     {
+  --       "zbirenbaum/copilot-cmp",
+  --       opts = {},
+  --     },
+  --   },
+  --   opts = {
+  --     sources = {
+  --       { name = "nvim_lsp", group_index = 2 },
+  --       { name = "copilot", group_index = 2 },
+  --       { name = "luasnip", group_index = 2 },
+  --       { name = "buffer", group_index = 2 },
+  --       { name = "nvim_lua", group_index = 2 },
+  --       { name = "path", group_index = 2 },
+  --     },
+  --   },
+  -- },
 
   { "MunifTanjim/nui.nvim", lazy = true },
 

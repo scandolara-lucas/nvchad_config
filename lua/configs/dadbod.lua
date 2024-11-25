@@ -5,7 +5,7 @@ local function db_completion()
     sources = {
       { name = "vim-dadbod-completion" },
       { name = "buffer" },
-      { name = "copilot" },
+      -- { name = "copilot" },
       { name = "luasnip" },
     },
   }
