@@ -40,6 +40,7 @@ map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "Toggle nvcheatsheet" }
 map("n", "<leader>ll", vim.diagnostic.setloclist, { desc = "LSP Diagnostic loclist" })
 -- TODO: remap lsp rename here
 map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP Rename", remap = true })
+map("n", "<leader>lc", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 
 -- Tabufline
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
