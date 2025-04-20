@@ -41,6 +41,7 @@ return {
         "vimdoc",
         "python",
         "rust",
+        "go",
       },
     },
   },
