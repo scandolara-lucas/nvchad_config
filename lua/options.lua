@@ -8,3 +8,6 @@ require "nvchad.options"
 vim.wo.relativenumber = true
 vim.wo.scrolloff = 14
 vim.wo.wrap = false
+
+vim.opt.spelllang = "en_us"
+vim.opt.spell = true

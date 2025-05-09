@@ -3,6 +3,7 @@ return {
     formatters_by_ft = {
       lua = { "stylua" },
       python = { "black" },
+      xml = { "xmlformatter" },
       -- css = { "prettier" },
       -- html = { "prettier" },
     },
@@ -40,7 +41,6 @@ return {
 
   vim.api.nvim_create_user_command("FormatEnable", function()
     vim.b.disable_autoformat = false
-    vim.g.disable_autoformat = false
   end, {
     desc = "Re-enable autoformat-on-save",
   }),

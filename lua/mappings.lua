@@ -41,6 +41,8 @@ map("n", "<leader>ll", vim.diagnostic.setloclist, { desc = "LSP Diagnostic locli
 -- TODO: remap lsp rename here
 map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP Rename", remap = true })
 map("n", "<leader>lc", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
+-- This one is to make it work with flutter LSP, which somehow does not work by default
+map("n", "gd", vim.lsp.buf.definition, { desc = "LSP go to definition" })
 
 -- Tabufline
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
