@@ -362,4 +362,9 @@ return {
       },
     },
   },
+
+  { -- Csv editor
+    "chrisbra/csv.vim",
+    ft = { "csv" },
+  },
 }
