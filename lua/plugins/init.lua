@@ -47,13 +47,13 @@ return {
   },
 
   -- Rust stuff
-  { -- Debugger and several extra things
+  {                 -- Debugger and several extra things
     "mrcjkb/rustaceanvim",
     version = "^4", -- Recommended
-    lazy = false, -- This plugin is already lazy
+    lazy = false,   -- This plugin is already lazy
   },
 
-  { -- Obsidian plugin
+  {                -- Obsidian plugin
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
@@ -66,8 +66,8 @@ return {
     --   "BufNewFile path/to/my-vault/**.md",
     -- },
     event = {
-      "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
-      "BufNewFile " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
+      "BufReadPre " .. vim.fn.expand "~" .. "/Secure/plain/Notes/Definitivo/**.md",
+      "BufNewFile " .. vim.fn.expand "~" .. "/Secure/plain/Notes/Definitivo/**.md",
     },
     dependencies = {
       -- Required.
@@ -77,7 +77,7 @@ return {
       workspaces = {
         {
           name = "personal",
-          path = "~/Documents/Definitivo",
+          path = "~/Secure/plain/Notes/Definitivo/",
         },
       },
       daily_notes = {
@@ -180,7 +180,7 @@ return {
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
-      { "tpope/vim-dadbod", lazy = true },
+      { "tpope/vim-dadbod",                     lazy = true },
       { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
     },
     cmd = {
@@ -252,11 +252,11 @@ return {
         },
         -- you can enable a preset for easier configuration
         presets = {
-          bottom_search = false, -- use a classic bottom cmdline for search
-          command_palette = true, -- position the cmdline and popupmenu together
+          bottom_search = false,        -- use a classic bottom cmdline for search
+          command_palette = true,       -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = true, -- add a border to hover docs and signature help
+          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = true,        -- add a border to hover docs and signature help
         },
       }
     end,
@@ -357,7 +357,7 @@ return {
           analysisExcludedFolders = { "<path-to-flutter-sdk-packages>" },
           renameFilesWithClasses = "prompt", -- "always"
           enableSnippets = true,
-          updateImportsOnRename = true, -- Whether to update imports and other directives when files are renamed. Required for `FlutterRename` command.
+          updateImportsOnRename = true,      -- Whether to update imports and other directives when files are renamed. Required for `FlutterRename` command.
         },
       },
     },
@@ -367,4 +367,38 @@ return {
     "chrisbra/csv.vim",
     ft = { "csv" },
   },
+
+  {
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
+
+
+  -- Protobuff integration
+  {
+    "bufbuild/vim-buf",
+  },
+
+  {
+    "dense-analysis/ale",
+    lazy = false,
+    dependencies = {
+      "bufbuild/vim-buf",
+    },
+    config = function()
+      -- Configuration goes here.
+      local g = vim.g
+
+      g.ale_linters = {
+        proto = { 'buf-lint' },
+      }
+    end
+  }
 }

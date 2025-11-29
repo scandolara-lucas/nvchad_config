@@ -5,29 +5,27 @@ require("nvchad.configs.lspconfig").defaults()
 -- local on_attach = require("nvchad.configs.lspconfig").on_attach
 -- local on_init = require("nvchad.configs.lspconfig").on_init
 -- local capabilities = require("nvchad.configs.lspconfig").capabilities
-
-local lspconfig = require "lspconfig"
-local servers = { "html", "cssls", "basedpyright", "gopls" }
+local servers = { "tailwindcss", "ts_ls", "html", "cssls", "basedpyright", "gopls" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  vim.lsp.config(lsp, {
     on_attach = nvlsp.on_attach,
     on_init = nvlsp.on_init,
     capabilities = nvlsp.capabilities,
-  }
+  })
 end
 
--- Typescript
-lspconfig.ts_ls.setup {
+-- Typescript (additional config if needed)
+vim.lsp.config("ts_ls", {
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
-}
+})
 
 -- Go
-lspconfig.gopls.setup {
+vim.lsp.config("gopls", {
   settings = {
     gopls = {
       analyses = {
@@ -37,4 +35,7 @@ lspconfig.gopls.setup {
       gofumpt = true,
     },
   },
-}
+})
+
+-- Enable the configured servers
+vim.lsp.enable(servers)
