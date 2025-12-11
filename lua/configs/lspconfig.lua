@@ -2,32 +2,26 @@ local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
-local lspconfig = require "lspconfig"
-local servers = { "html", "cssls", "basedpyright", "ruff" }
+local servers = { "html", "cssls", "basedpyright", "ruff", "gopls" }
 
--- lsps with default config
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  vim.lsp.config(lsp, {
     on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,
-  }
+  })
+  vim.lsp.enable(lsp)
 end
 
--- typescript
--- lspconfig.ts_ls.setup {
---   on_attach = on_attach,
---   on_init = on_init,
---   capabilities = capabilities,
--- }
---
-
--- ruff
-lspconfig.ruff.setup {
+-- Ruff language server extra config
+vim.lsp.config("ruff", {
+  on_attach = on_attach,
+  on_init = on_init,
+  capabilities = capabilities,
   init_options = {
     settings = {
-      -- Ruff language server settings go here
       configurationPreference = "filesystemFirst",
     },
   },
-}
+})
+vim.lsp.enable "ruff"
