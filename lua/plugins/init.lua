@@ -194,6 +194,13 @@ return {
         local path = spec.dir / tostring(spec.id)
         return path:with_suffix ".md"
       end,
+
+      -- Optional, configure additional syntax highlighting / extmarks.
+      -- This requires you have `conceallevel` set to 1 or 2. See `:help conceallevel` for more details.
+      ui = {
+        enable = false, -- set to false to disable all additional syntax features
+      },
+
       -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
       -- way then set 'mappings = {}'.
       mappings = {
@@ -402,7 +409,7 @@ return {
 
   { -- Fluter dev
     "akinsho/flutter-tools.nvim",
-    lazy = false,
+    lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "stevearc/dressing.nvim", -- optional for vim.ui.select
@@ -434,7 +441,7 @@ return {
 
   { -- Flutter bloc boilerplate completion
     "wa11breaker/flutter-bloc.nvim",
-    lazy = false,
+    lazy = true,
     dependencies = {
       "nvimtools/none-ls.nvim", -- Required for code actions
     },
@@ -455,5 +462,24 @@ return {
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
+  },
+
+  { -- plugin that helps good habits in NVIM
+    "m4xshen/hardtime.nvim",
+    lazy = false,
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {},
+  },
+
+  { -- Nice markdown visualization
+    "MeanderingProgrammer/render-markdown.nvim",
+    lazy = false,
+    ft = "markdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
   },
 }
