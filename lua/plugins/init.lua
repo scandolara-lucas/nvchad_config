@@ -82,7 +82,7 @@ return {
       },
       daily_notes = {
         -- Optional, if you keep daily notes in a separate directory.
-        folder = "Work/Areas/DailyNotes",
+        folder = "Personal/Areas/DailyNotes",
         -- Optional, if you want to change the date format for the ID of daily notes.
         date_format = "%Y-%m-%d",
         -- Optional, if you want to change the date format of the default alias of daily notes.
@@ -388,7 +388,8 @@ return {
 
   {
     "dense-analysis/ale",
-    lazy = false,
+    ft = "proto",
+    lazy = true,
     dependencies = {
       "bufbuild/vim-buf",
     },
@@ -400,5 +401,33 @@ return {
         proto = { 'buf-lint' },
       }
     end
+  },
+
+  -- Better golang integration
+  {
+    "ray-x/go.nvim",
+    dependencies = { -- optional packages
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      -- lsp_keymaps = false,
+      -- other options
+    },
+    config = function(lp, opts)
+      require("go").setup(opts)
+      local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*.go",
+        callback = function()
+          require('go.format').goimports()
+        end,
+        group = format_sync_grp,
+      })
+    end,
+    event = { "CmdlineEnter" },
+    ft = { "go", 'gomod' },
+    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   }
 }
