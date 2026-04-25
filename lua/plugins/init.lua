@@ -8,7 +8,6 @@ return {
     end,
   },
 
-  -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -24,9 +23,9 @@ return {
         "lua-language-server",
         "stylua",
         "prettier",
-        "basedpyright",
-        "black",
-        "flake8",
+        -- "basedpyright",
+        -- "black",
+        -- "flake8",
         "rust-analyzer",
       },
     },
@@ -39,7 +38,7 @@ return {
         "vim",
         "lua",
         "vimdoc",
-        "python",
+        -- "python",
         "rust",
         "go",
       },
@@ -147,27 +146,6 @@ return {
         local path = spec.dir / tostring(spec.id)
         return path:with_suffix ".md"
       end,
-    },
-  },
-  { -- Auto Sync Neovim with Obsidian
-    "oflisback/obsidian-bridge.nvim",
-    config = function()
-      require("obsidian-bridge").setup {
-        scroll_sync = true,
-      }
-    end,
-    -- event = {
-    --   "BufReadPre *.md",
-    --   "BufNewFile *.md",
-    -- },
-    event = {
-      "BufReadPre " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
-      "BufNewFile " .. vim.fn.expand "~" .. "/Documents/Definitivo/**.md",
-    },
-    lazy = true,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
     },
   },
 
@@ -281,87 +259,11 @@ return {
     },
   },
 
-  { -- Plugin for tests
-    "nvim-neotest/neotest",
-    dependencies = {
-      "nvim-neotest/nvim-nio",
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-neotest/neotest-python",
-    },
-    ft = { "python" },
-    config = function()
-      require("neotest").setup {
-        adapters = {
-          require "neotest-python" {
-            -- Extra arguments for nvim-dap configuration
-            -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
-            dap = { justMyCode = false, console = "internalConsole" },
-            -- Command line arguments for runner
-            -- Can also be a function to return dynamic values
-            args = { "--log-level", "DEBUG" },
-            -- args = { "--log-level", "DEBUG", "--rootdir", "/Users/lucasscandolara/Azure/DataParser" },
-            -- Runner to use. Will use pytest if available by default.
-            -- Can be a function to return dynamic value.
-            runner = "pytest",
-            -- Custom python path for the runner.
-            -- Can be a string or a list of strings.
-            -- Can also be a function to return dynamic value.
-            -- If not provided, the path will be inferred by checking for
-            -- virtual envs in the local directory and for Pipenev/Poetry configs
-            -- NOTE: All tests under `tests/` folder MUST contain a `__init__.py` file
-            python = ".venv/bin/python",
-            -- Returns if a given file path is a test file.
-            -- NB: This function is called a lot so don't perform any heavy tasks within it.
-            -- is_test_file = function(file_path)
-            --   ...
-            -- end,
-            -- !!EXPERIMENTAL!! Enable shelling out to `pytest` to discover test
-            -- instances for files containing a parametrize mark (default: false)
-            -- pytest_discover_instances = true,
-          },
-        },
-      }
-    end,
-  },
-
   { -- Undo tree stuff
     "mbbill/undotree",
     event = "VeryLazy",
   },
 
-  { -- Fluter dev
-    "akinsho/flutter-tools.nvim",
-    lazy = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim", -- optional for vim.ui.select
-    },
-    config = true,
-    opts = {
-      lsp = {
-        color = { -- show the derived colours for dart variables
-          enabled = true, -- whether or not to highlight color variables at all, only supported on flutter >= 2.10
-          background = false, -- highlight the background
-          background_color = nil, -- required, when background is transparent (i.e. background_color = { r = 19, g = 17, b = 24},)
-          foreground = false, -- highlight the foreground
-          virtual_text = true, -- show the highlight using virtual text
-          virtual_text_str = "■", -- the virtual text character to highlight
-        },
-        -- see the link below for details on each option:
-        -- https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md#client-workspace-configuration
-        settings = {
-          showTodos = true,
-          completeFunctionCalls = true,
-          analysisExcludedFolders = { "<path-to-flutter-sdk-packages>" },
-          renameFilesWithClasses = "prompt", -- "always"
-          enableSnippets = true,
-          updateImportsOnRename = true,      -- Whether to update imports and other directives when files are renamed. Required for `FlutterRename` command.
-        },
-      },
-    },
-  },
 
   { -- Csv editor
     "chrisbra/csv.vim",
